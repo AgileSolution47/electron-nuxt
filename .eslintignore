@@ -1,0 +1,9 @@
+template/.eslintrc.js
+template/ava.config.js
+template/builder.config.js
+
+template/src/renderer/nuxt.config.js
+template/src/renderer/plugins/buefy.js
+template/src/renderer/plugins/icons.js
+template/src/renderer/plugins/vuetify.js
+

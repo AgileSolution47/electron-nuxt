@@ -1,0 +1,84 @@
+{
+  "name": "{{ name }}",
+  "version": "0.0.1",
+  "description": "{{ description }}",
+  "main": "./dist/main/index.js",
+  "scripts": {
+    "dev": "node .electron-nuxt/dev.js",
+    "build": "node .electron-nuxt/build.js",
+    {{#if eslint}}
+    "lint": "node_modules/.bin/eslint --ext .js,.vue{{#if typescript}},.ts{{/if}} -f ./node_modules/eslint-friendly-formatter ./src",
+    "lint:fix": "yarn lint --fix",
+    {{/if}}
+    "preinstall": "node .electron-nuxt/check-engines.js",
+    "postinstall": "electron-builder install-app-deps {{#if eslint}}& yarn lint:fix{{/if}}"
+  },
+  "keywords": [],
+  "author": "{{#if isCIServer}}michalzaq12 <“michal.m.zarach@gmail.com”>{{else}}{{ author }}{{/if}}",
+  "license": "MIT",
+  "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
+  "engines" : {
+    "node" : ">=14.14.9"
+  },
+  "resolutions": {
+    "@types/node": "14.14.9"
+  },
+  "devDependencies": {
+    {{dependency '@xpda-dev/core'}}
+    {{dependency '@xpda-dev/electron-launcher'}}
+    {{dependency '@xpda-dev/electron-builder'}}
+    {{dependency '@xpda-dev/webpack-step'}}
+    {{dependency 'deepmerge'}}
+    {{#if_eq iconSet 'fa5'}}
+    {{dependency '@fortawesome/fontawesome-free'}}
+    {{/if_eq}}
+    {{#if_eq iconSet 'mdi'}}
+    {{dependency '@mdi/font'}}
+    {{/if_eq}}
+    {{#if_eq cssFramework 'buefy'}}
+    {{dependency 'buefy'}}
+    {{/if_eq}}
+    {{dependency 'cross-env'}}
+    {{dependency 'electron'}}
+    {{dependency 'electron-builder'}}
+    {{#if_eq cssFramework 'element'}}
+    {{dependency 'element-ui'}}
+    {{/if_eq}}
+    {{#if eslint}}
+    {{dependency 'eslint'}}
+    {{#unless typescript}}{{dependency '@babel/eslint-parser'}}{{/unless}}
+    {{dependency 'eslint-friendly-formatter'}}
+    {{dependency 'eslint-loader'}}
+    {{#unless typescript}}
+    {{dependency '@nuxtjs/eslint-config'}}
+    {{dependency 'eslint-plugin-nuxt'}}
+    {{dependency 'eslint-plugin-vue'}}
+    {{/unless}}
+    {{#if typescript}}{{dependency '@nuxtjs/eslint-config-typescript'}}{{/if}}
+    {{/if}}
+    {{#if_eq cssPreprocessor 'less'}}
+    {{dependency 'less'}}
+    {{dependency 'less-loader'}}
+    {{/if_eq}}
+    {{dependency 'nuxt'}}
+    {{#if typescript}}
+    {{dependency '@nuxt/typescript-build'}}
+    {{/if}}
+    {{#if_eq cssPreprocessor 'sass'}}
+    {{dependency 'node-sass'}}
+    {{dependency 'sass-loader'}}
+    {{/if_eq}}
+    {{#if_eq cssPreprocessor 'stylus'}}
+    {{dependency 'stylus'}}
+    {{dependency 'stylus-loader'}}
+    {{/if_eq}}
+    {{dependency 'electron-devtools-installer'}}
+    {{#if_eq cssFramework 'vuetify'}}
+    {{dependency 'roboto-fontface'}}
+    {{dependency 'vuetify'}}
+    {{dependency '@nuxtjs/vuetify'}}
+    {{/if_eq}}
+    {{dependency 'webpack'}}
+    {{dependency 'webpack-node-externals' false}}
+  }
+}
